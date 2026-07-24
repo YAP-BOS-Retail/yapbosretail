@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 export default function ContactForm({ t, defaultMessage = '' }) {
   const [form, setForm] = useState({ name: '', company: '', email: '', message: defaultMessage });
+  const [status, setStatus] = useState('idle'); // idle | sending | success | error
 
   useEffect(() => {
     if (defaultMessage) {
@@ -11,13 +12,21 @@ export default function ContactForm({ t, defaultMessage = '' }) {
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const subject = encodeURIComponent(`YAP-BOS Retail — ${form.company || form.name || 'Contact'}`);
-    const body = encodeURIComponent(
-      `${t.form.name}: ${form.name}\n${t.form.company}: ${form.company}\n${t.form.email}: ${form.email}\n\n${form.message}`
-    );
-    window.location.href = `mailto:welcome@yapbosretail.com?subject=${subject}&body=${body}`;
+    setStatus('sending');
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error('Request failed');
+      setStatus('success');
+      setForm({ name: '', company: '', email: '', message: '' });
+    } catch {
+      setStatus('error');
+    }
   };
 
   return (
@@ -57,10 +66,13 @@ export default function ContactForm({ t, defaultMessage = '' }) {
       />
       <button
         type="submit"
-        className="mt-2 rounded-full border border-white bg-white px-6 py-3 text-xs uppercase tracking-widest2 text-black transition hover:bg-transparent hover:text-white"
+        disabled={status === 'sending'}
+        className="mt-2 rounded-full border border-white bg-white px-6 py-3 text-xs uppercase tracking-widest2 text-black transition hover:bg-transparent hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {t.form.submit}
+        {status === 'sending' ? t.form.sending : t.form.submit}
       </button>
+      {status === 'success' && <p className="text-sm text-white/70">{t.form.success}</p>}
+      {status === 'error' && <p className="text-sm text-red-400">{t.form.error}</p>}
     </form>
   );
 }
