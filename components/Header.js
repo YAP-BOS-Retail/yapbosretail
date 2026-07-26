@@ -10,8 +10,7 @@ export default function Header({ t }) {
   const eventsRef = useRef(null);
   const otherLocale = router.locale === 'tr' ? 'en' : 'tr';
 
-  const eventItems = t.eventsPage.items;
-  const nextItems = t.eventsPage.next;
+  const nearestEvent = t.eventsPage.items[0];
 
   useEffect(() => {
     if (!eventsOpen) return;
@@ -60,32 +59,33 @@ export default function Header({ t }) {
             {eventsOpen && (
               <div className="absolute left-1/2 top-full w-80 -translate-x-1/2 pt-3">
                 <div className="rounded-2xl border border-white/10 bg-black/95 p-3 shadow-2xl backdrop-blur-md">
-                  {eventItems.map((item) => (
+                  {nearestEvent && (
                     <Link
-                      key={item.slug}
-                      href={`/events/${item.slug}`}
+                      href={`/events/${nearestEvent.slug}`}
                       onClick={() => setEventsOpen(false)}
-                      className="block rounded-lg px-3 py-2.5 text-left transition hover:bg-white/5"
+                      className="block rounded-lg px-3 py-3 text-left transition hover:bg-white/5"
                     >
-                      <div className="flex items-center justify-between gap-3">
-                        <span className="text-sm text-white">{item.title}</span>
+                      <span className="text-[10px] uppercase tracking-widest2 text-white/40">
+                        {nearestEvent.status || t.eventsPage.featuredLabel}
+                      </span>
+                      <div className="mt-1 flex items-center justify-between gap-3">
+                        <span className="text-sm text-white">{nearestEvent.title}</span>
                         <span className="whitespace-nowrap text-[10px] uppercase tracking-widest2 text-white/40">
-                          {item.badge}
+                          {nearestEvent.badge}
                         </span>
                       </div>
                     </Link>
-                  ))}
+                  )}
 
                   <div className="my-2 border-t border-white/10" />
 
-                  {nextItems.map((n) => (
-                    <div key={n.title} className="flex items-center justify-between px-3 py-2 opacity-50">
-                      <span className="text-sm text-white/70">{n.title}</span>
-                      <span className="whitespace-nowrap text-[10px] uppercase tracking-widest2 text-white/40">
-                        {n.status}
-                      </span>
-                    </div>
-                  ))}
+                  <Link
+                    href="/events"
+                    onClick={() => setEventsOpen(false)}
+                    className="block rounded-lg px-3 py-2.5 text-center text-xs uppercase tracking-widest2 text-white/70 transition hover:bg-white/5 hover:text-white"
+                  >
+                    {t.eventsPage.upcomingLabel} →
+                  </Link>
                 </div>
               </div>
             )}
@@ -138,23 +138,17 @@ export default function Header({ t }) {
               <Link href="/events" onClick={() => setOpen(false)} className="text-sm uppercase tracking-widest2 text-white/80">
                 {t.nav.events}
               </Link>
-              <div className="ml-3 flex flex-col gap-2 border-l border-white/10 pl-3">
-                {eventItems.map((item) => (
+              {nearestEvent && (
+                <div className="ml-3 flex flex-col gap-2 border-l border-white/10 pl-3">
                   <Link
-                    key={item.slug}
-                    href={`/events/${item.slug}`}
+                    href={`/events/${nearestEvent.slug}`}
                     onClick={() => setOpen(false)}
                     className="text-xs text-white/60"
                   >
-                    {item.title} — {item.badge}
+                    {nearestEvent.title} — {nearestEvent.badge}
                   </Link>
-                ))}
-                {nextItems.map((n) => (
-                  <span key={n.title} className="text-xs text-white/30">
-                    {n.title} — {n.status}
-                  </span>
-                ))}
-              </div>
+                </div>
+              )}
             </div>
 
             <Link href="/contact" onClick={() => setOpen(false)} className="text-sm uppercase tracking-widest2 text-white/80">

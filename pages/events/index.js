@@ -61,10 +61,10 @@ export default function Events() {
         </div>
       </section>
 
-      {/* EVENT LISTINGS */}
-      <section className="border-b border-white/10 bg-panel px-6 py-24 lg:px-10">
+      {/* UPCOMING EVENTS */}
+      <section id="upcoming" className="scroll-mt-24 border-b border-white/10 bg-panel px-6 py-24 lg:px-10">
         <div className="mx-auto max-w-6xl">
-          <p className="mb-6 text-xs uppercase tracking-widest2 text-white/50">{e.featuredLabel}</p>
+          <p className="mb-6 text-xs uppercase tracking-widest2 text-white/50">{e.upcomingLabel}</p>
 
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             {e.items.map((item) => (
@@ -88,6 +88,9 @@ export default function Events() {
                 <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-xs uppercase tracking-widest2 text-white/40">
                   <span>{item.sectorValue}</span>
                   <span>{item.attendeesValue} {item.attendeesLabel}</span>
+                  {item.deadlineValue && (
+                    <span>{item.deadlineLabel}: {item.deadlineValue}</span>
+                  )}
                 </div>
                 <span className="mt-6 inline-block text-xs uppercase tracking-widest2 text-white transition group-hover:underline">
                   {item.viewLabel} →
@@ -110,6 +113,32 @@ export default function Events() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* PAST EVENTS */}
+      <section id="past" className="scroll-mt-24 border-b border-white/10 bg-panel px-6 py-24 lg:px-10">
+        <div className="mx-auto max-w-6xl">
+          <p className="mb-6 text-xs uppercase tracking-widest2 text-white/50">{e.pastLabel}</p>
+          {e.past.length === 0 ? (
+            <p className="text-sm text-white/40">{e.pastEmptyText}</p>
+          ) : (
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              {e.past.map((item) => (
+                <Link
+                  key={item.slug}
+                  href={`/events/${item.slug}`}
+                  className="group rounded-2xl border border-white/10 bg-black p-8 opacity-70 transition hover:border-white/30 hover:opacity-100"
+                >
+                  <span className="inline-block rounded-full border border-white/20 px-4 py-1.5 text-xs uppercase tracking-widest2 text-white/60">
+                    {item.badge}
+                  </span>
+                  <h3 className="font-display mt-5 text-2xl font-medium">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-white/55">{item.desc}</p>
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

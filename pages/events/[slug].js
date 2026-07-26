@@ -59,6 +59,12 @@ export default function EventDetail() {
                   <p className="font-display text-sm font-medium leading-snug">{item.formatValue}</p>
                   <p className="mt-1 text-xs uppercase tracking-widest2 text-white/40">{item.formatLabel}</p>
                 </div>
+                {item.deadlineValue && (
+                  <div>
+                    <p className="font-display text-sm font-medium leading-snug">{item.deadlineValue}</p>
+                    <p className="mt-1 text-xs uppercase tracking-widest2 text-white/40">{item.deadlineLabel}</p>
+                  </div>
+                )}
               </div>
             </div>
           </div>
