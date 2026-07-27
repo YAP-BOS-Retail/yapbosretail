@@ -138,8 +138,8 @@ export default function Header({ t }) {
               <Link href="/events" onClick={() => setOpen(false)} className="text-sm uppercase tracking-widest2 text-white/80">
                 {t.nav.events}
               </Link>
-              {nearestEvent && (
-                <div className="ml-3 flex flex-col gap-2 border-l border-white/10 pl-3">
+              <div className="ml-3 flex flex-col gap-2 border-l border-white/10 pl-3">
+                {nearestEvent && (
                   <Link
                     href={`/events/${nearestEvent.slug}`}
                     onClick={() => setOpen(false)}
@@ -147,8 +147,15 @@ export default function Header({ t }) {
                   >
                     {nearestEvent.title} — {nearestEvent.badge}
                   </Link>
-                </div>
-              )}
+                )}
+                <Link
+                  href="/events/upcoming"
+                  onClick={() => setOpen(false)}
+                  className="text-xs uppercase tracking-widest2 text-white/60"
+                >
+                  {t.eventsPage.upcomingLabel} →
+                </Link>
+              </div>
             </div>
 
             <Link href="/contact" onClick={() => setOpen(false)} className="text-sm uppercase tracking-widest2 text-white/80">

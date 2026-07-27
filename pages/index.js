@@ -8,7 +8,7 @@ const organizationJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'YAP-BOS Retail',
-  alternateName: 'YAPBOS Retail',
+  alternateName: ['YAPBOS Retail', 'Yap Bos Retail', 'YapBos Retail', 'Yapbos Retail'],
   url: 'https://www.yapbosretail.com',
   logo: 'https://www.yapbosretail.com/logo.png',
   sameAs: ['https://www.linkedin.com/company/yap-bos-retail/'],
