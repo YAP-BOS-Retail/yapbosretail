@@ -9,8 +9,8 @@ const organizationJsonLd = {
   '@type': 'Organization',
   name: 'YAP-BOS Retail',
   alternateName: 'YAPBOS Retail',
-  url: 'https://yapbosretail.com',
-  logo: 'https://yapbosretail.com/logo.png',
+  url: 'https://www.yapbosretail.com',
+  logo: 'https://www.yapbosretail.com/logo.png',
   sameAs: ['https://www.linkedin.com/company/yap-bos-retail/'],
   email: 'welcome@yapbosretail.com',
   address: {

@@ -5,7 +5,7 @@ import Footer from './Footer';
 
 export default function Layout({ t, title, description, children }) {
   const router = useRouter();
-  const canonical = `https://yapbosretail.com${router.locale === 'en' ? '/en' : ''}${router.asPath === '/' ? '' : router.asPath}`;
+  const canonical = `https://www.yapbosretail.com${router.locale === 'en' ? '/en' : ''}${router.asPath === '/' ? '' : router.asPath}`;
 
   return (
     <div id="top" className="min-h-screen bg-black text-white">
