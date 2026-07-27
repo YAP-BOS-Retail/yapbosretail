@@ -1,7 +1,24 @@
+import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import content from '../lib/content';
 import Layout from '../components/Layout';
+
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'YAP-BOS Retail',
+  alternateName: 'YAPBOS Retail',
+  url: 'https://yapbosretail.com',
+  logo: 'https://yapbosretail.com/logo.png',
+  sameAs: ['https://www.linkedin.com/company/yap-bos-retail/'],
+  email: 'welcome@yapbosretail.com',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Istanbul',
+    addressCountry: 'TR',
+  },
+};
 
 export default function Home() {
   const router = useRouter();
@@ -10,6 +27,12 @@ export default function Home() {
 
   return (
     <Layout t={t}>
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
+      </Head>
       {/* HERO */}
       <section className="bg-grid relative overflow-hidden border-b border-white/10 px-6 pb-24 pt-40 lg:px-10 lg:pt-48">
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black" />
