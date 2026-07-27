@@ -80,7 +80,7 @@ export default function Header({ t }) {
                   <div className="my-2 border-t border-white/10" />
 
                   <Link
-                    href="/events"
+                    href="/events/upcoming"
                     onClick={() => setEventsOpen(false)}
                     className="block rounded-lg px-3 py-2.5 text-center text-xs uppercase tracking-widest2 text-white/70 transition hover:bg-white/5 hover:text-white"
                   >

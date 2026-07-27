@@ -18,8 +18,8 @@ export default function EventDetail() {
 
       <section className="px-6 py-24 lg:px-10">
         <div className="mx-auto max-w-6xl">
-          <Link href="/events" className="text-xs uppercase tracking-widest2 text-white/40 transition hover:text-white">
-            ← {e.eyebrow}
+          <Link href="/events/upcoming" className="text-xs uppercase tracking-widest2 text-white/40 transition hover:text-white">
+            ← {e.upcomingLabel}
           </Link>
 
           <div className="mt-8 rounded-2xl border border-white/10 bg-panel p-8 lg:p-14">
